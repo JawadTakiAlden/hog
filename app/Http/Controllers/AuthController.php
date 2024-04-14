@@ -31,7 +31,7 @@ class AuthController extends Controller
         }catch (\Throwable $th){
             DB::rollBack();
 //            return HelperFunction::ServerErrorResponse();
-            return $th->getMessage();
+            return $this->error($th->getMessage());
         }
     }
 
