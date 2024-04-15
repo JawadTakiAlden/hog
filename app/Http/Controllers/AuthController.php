@@ -23,9 +23,10 @@ class AuthController extends Controller
     use HTTPResponse;
     public function signup (Request $request) {
         try {
+//            |regex:/^09[0-9]*$/
             $request->validate([
                 'full_name' => 'required|string|min:4',
-                'phone' => 'required|min:10|max:10|unique:users,phone|regex:/^09[0-9]*$/',
+                'phone' => 'required|min:10|max:10|unique:users,phone',
                 'password' => 'required|min:7|max:26',
                 'image' => 'image|mimes:png,jpg,jpeg|max:5120',
                 'device_id' => ['required' , Rule::unique('users' , 'device_id')],
@@ -40,7 +41,8 @@ class AuthController extends Controller
             ] , __('messages.auth_controller.register'));
         }catch (\Throwable $th){
             DB::rollBack();
-            return HelperFunction::ServerErrorResponse();
+//            return HelperFunction::ServerErrorResponse();
+            return $this->error($th->getMessage());
         }
     }
 
