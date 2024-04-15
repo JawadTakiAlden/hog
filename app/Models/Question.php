@@ -16,42 +16,42 @@ class Question extends Model
     }
 
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::deleting(function ($question) {
-            if ($question->image){
-                $imagePath = public_path($question->image);
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-            }
-            if ($question->clarification_image){
-                $imagePath = public_path($question->clarification_image);
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-            }
-        });
-        static::updated(function ($question) {
-            if ($question->image){
-                if ($question->isDirty('image')) {
-                    $oldImagePath = public_path($question->getOriginal('image'));
-                    if (File::exists($oldImagePath)) {
-                        File::delete($oldImagePath);
-                    }
-                }
-            }
-            if ($question->clarification_image){
-                if ($question->isDirty('clarification_image')) {
-                    $oldImagePath = public_path($question->getOriginal('clarification_image'));
-                    if (File::exists($oldImagePath)) {
-                        File::delete($oldImagePath);
-                    }
-                }
-            }
-        });
-    }
+//    protected static function boot()
+//    {
+//        parent::boot();
+//        static::deleting(function ($question) {
+//            if ($question->image){
+//                $imagePath = public_path($question->image);
+//                if (File::exists($imagePath)) {
+//                    File::delete($imagePath);
+//                }
+//            }
+//            if ($question->clarification_image){
+//                $imagePath = public_path($question->clarification_image);
+//                if (File::exists($imagePath)) {
+//                    File::delete($imagePath);
+//                }
+//            }
+//        });
+//        static::updated(function ($question) {
+//            if ($question->image){
+//                if ($question->isDirty('image')) {
+//                    $oldImagePath = public_path($question->getOriginal('image'));
+//                    if (File::exists($oldImagePath)) {
+//                        File::delete($oldImagePath);
+//                    }
+//                }
+//            }
+//            if ($question->clarification_image){
+//                if ($question->isDirty('clarification_image')) {
+//                    $oldImagePath = public_path($question->getOriginal('clarification_image'));
+//                    if (File::exists($oldImagePath)) {
+//                        File::delete($oldImagePath);
+//                    }
+//                }
+//            }
+//        });
+//    }
 
     public function setImageAttribute ($image){
         $newImageName = uniqid() . '_' . 'image' . '.' . $image->extension();

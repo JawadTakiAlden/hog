@@ -31,30 +31,30 @@ class Course extends Model
         return $this->attributes['image'] =  '/'.'course_images'.'/' . $newImageName;
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::deleting(function ($course) {
-            if ($course->image){
-                $imagePath = public_path($course->image);
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-            }
-
-        });
-        static::updated(function ($course) {
-            if ($course->image){
-                if ($course->isDirty('image')) {
-                    $oldImagePath = public_path($course->getOriginal('image'));
-                    if (File::exists($oldImagePath)) {
-                        File::delete($oldImagePath);
-                    }
-                }
-            }
-
-        });
-    }
+//    protected static function boot()
+//    {
+//        parent::boot();
+//        static::deleting(function ($course) {
+//            if ($course->image){
+//                $imagePath = public_path($course->image);
+//                if (File::exists($imagePath)) {
+//                    File::delete($imagePath);
+//                }
+//            }
+//
+//        });
+//        static::updated(function ($course) {
+//            if ($course->image){
+//                if ($course->isDirty('image')) {
+//                    $oldImagePath = public_path($course->getOriginal('image'));
+//                    if (File::exists($oldImagePath)) {
+//                        File::delete($oldImagePath);
+//                    }
+//                }
+//            }
+//
+//        });
+//    }
 
     public function numberOfEnrolmentBySingleCode(){
         $countBySingle = AccountInrolment::where('course_id' , $this->id)
