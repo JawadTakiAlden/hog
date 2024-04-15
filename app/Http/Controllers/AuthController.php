@@ -11,27 +11,15 @@ use App\HttpResponse\HTTPResponse;
 use App\Models\User;
 use App\Types\UserType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
     use HTTPResponse;
-    public function signup (Request $request) {
+    public function signup (SignUpRequest $request) {
         try {
-//            |regex:/^09[0-9]*$/
-            $request->validate([
-                'full_name' => 'required|string|min:4',
-                'phone' => 'required|min:10|max:10|unique:users,phone',
-                'password' => 'required|min:7|max:26',
-                'image' => 'image|mimes:png,jpg,jpeg|max:5120',
-                'device_id' => ['required' , Rule::unique('users' , 'device_id')],
-                'device_notification_id' => 'required'
-            ]);
             DB::beginTransaction();
             $user = User::create($request->only(['full_name' , 'image' , 'device_notification_id' , 'phone' , 'password' , 'device_id']));
             DB::commit();
@@ -41,8 +29,7 @@ class AuthController extends Controller
             ] , __('messages.auth_controller.register'));
         }catch (\Throwable $th){
             DB::rollBack();
-//            return HelperFunction::ServerErrorResponse();
-            return $this->error($th->getMessage());
+            return HelperFunction::ServerErrorResponse();
         }
     }
 
