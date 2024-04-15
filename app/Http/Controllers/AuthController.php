@@ -10,10 +10,8 @@ use App\Http\Resources\UserResource;
 use App\HttpResponse\HTTPResponse;
 use App\Models\User;
 use App\Types\UserType;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -21,7 +19,17 @@ class AuthController extends Controller
     public function signup (SignUpRequest $request) {
         try {
             DB::beginTransaction();
-            $user = User::create($request->only(['full_name' , 'image' , 'device_notification_id' , 'phone' , 'password' , 'device_id']));
+            $user = $request->only(
+                [
+                    'full_name' ,
+                    'image' ,
+                    'device_notification_id' ,
+                    'phone' ,
+                    'password' ,
+                    'device_id'
+                ]
+            );
+//            $user = User::create();
             DB::commit();
             return $this->success($user , 'تحت الصيانة الرجاء الانتظاء والمحاولة بعد ساعة من الان');
 //            return $this->success([
