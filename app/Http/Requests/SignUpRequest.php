@@ -31,4 +31,5 @@ class SignUpRequest extends FormRequest
             'device_notification_id' => 'required'
         ];
     }
+
 }

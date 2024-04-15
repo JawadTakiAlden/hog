@@ -30,8 +30,8 @@ class AuthController extends Controller
             ] , __('messages.auth_controller.register'));
         }catch (\Throwable $th){
             DB::rollBack();
-//            return HelperFunction::ServerErrorResponse();
-            return $this->error($th->getMessage() , 500);
+            return HelperFunction::ServerErrorResponse();
+//            return $this->error($th->getMessage() , 500);
         }
     }
 
