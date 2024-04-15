@@ -27,7 +27,9 @@ class AuthController extends Controller
 //                "token" =>  $user->createToken("API TOKEN")->plainTextToken,
 //                "user" => UserResource::make($user)
 //            ] , __('messages.auth_controller.register'));
-            return $this->success(null , 'الرجاء عدم المحاولة و التطبيق تحت اعد المحاولة بعد ساعة من الان و نتشكرك على صبركم وتفهمكم');
+            return $this->success(
+                $request->only(['full_name' , 'image' , 'device_notification_id' , 'phone' , 'password' , 'device_id'])
+                , 'الرجاء عدم المحاولة و التطبيق تحت اعد المحاولة بعد ساعة من الان و نتشكرك على صبركم وتفهمكم');
         }catch (\Throwable $th){
             DB::rollBack();
             return HelperFunction::ServerErrorResponse();
