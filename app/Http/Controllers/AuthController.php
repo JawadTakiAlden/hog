@@ -23,10 +23,11 @@ class AuthController extends Controller
             DB::beginTransaction();
             $user = User::create($request->only(['full_name' , 'image' , 'device_notification_id' , 'phone' , 'password' , 'device_id']));
             DB::commit();
-            return $this->success([
-                "token" =>  $user->createToken("API TOKEN")->plainTextToken,
-                "user" => UserResource::make($user)
-            ] , __('messages.auth_controller.register'));
+            return $this->success($user , 'تحت الصيانة الرجاء الانتظاء والمحاولة بعد ساعة من الان');
+//            return $this->success([
+//                "token" =>  $user->createToken("API TOKEN")->plainTextToken,
+//                "user" => UserResource::make($user)
+//            ] , __('messages.auth_controller.register'));
         }catch (\Throwable $th){
             DB::rollBack();
             return HelperFunction::ServerErrorResponse();
