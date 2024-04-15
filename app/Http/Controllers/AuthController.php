@@ -29,7 +29,7 @@ class AuthController extends Controller
                     'device_id'
                 ]
             );
-//            $user = User::create();
+            $user = User::create($user);
             DB::commit();
             return $this->success($user , 'تحت الصيانة الرجاء الانتظاء والمحاولة بعد ساعة من الان');
 //            return $this->success([
