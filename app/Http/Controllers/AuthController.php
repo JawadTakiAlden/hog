@@ -19,24 +19,24 @@ class AuthController extends Controller
     public function signup (SignUpRequest $request) {
         try {
             DB::beginTransaction();
-            $user = User::create($request->only(
-                [
-                    'full_name' ,
-                    'image' ,
-                    'device_notification_id' ,
-                    'phone' ,
-                    'password' ,
-                    'device_id'
-                ]
-            ));
+//            $user = User::create($request->only(
+//                [
+//                    'full_name' ,
+//                    'image' ,
+//                    'device_notification_id' ,
+//                    'phone' ,
+//                    'password' ,
+//                    'device_id'
+//                ]
+//            ));
             DB::commit();
             return $this->success([
-                "token" =>  $user->createToken("API TOKEN")->plainTextToken,
-                "user" => UserResource::make($user)
+//                "token" =>  $user->createToken("API TOKEN")->plainTextToken,
+//                "user" => UserResource::make($user)
             ] , __('messages.auth_controller.register'));
         }catch (\Throwable $th){
             DB::rollBack();
-            return HelperFunction::ServerErrorResponse();
+            return HelperFunction::ServerErrorResponse($th);
         }
     }
 
