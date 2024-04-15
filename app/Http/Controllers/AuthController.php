@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function signup (SignUpRequest $request) {
         try {
             DB::beginTransaction();
-            $user = $request->only(
+            $user = User::create($request->only(
                 [
                     'full_name' ,
                     'image' ,
@@ -28,14 +28,12 @@ class AuthController extends Controller
                     'password' ,
                     'device_id'
                 ]
-            );
-            $user = User::create($user);
+            ));
             DB::commit();
-            return $this->success($user , 'تحت الصيانة الرجاء الانتظاء والمحاولة بعد ساعة من الان');
-//            return $this->success([
-//                "token" =>  $user->createToken("API TOKEN")->plainTextToken,
-//                "user" => UserResource::make($user)
-//            ] , __('messages.auth_controller.register'));
+            return $this->success([
+                "token" =>  $user->createToken("API TOKEN")->plainTextToken,
+                "user" => UserResource::make($user)
+            ] , __('messages.auth_controller.register'));
         }catch (\Throwable $th){
             DB::rollBack();
             return HelperFunction::ServerErrorResponse();
