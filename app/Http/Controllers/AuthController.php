@@ -20,16 +20,13 @@ class AuthController extends Controller
     use HTTPResponse;
     public function signup (SignUpRequest $request) {
         try {
-//            DB::beginTransaction();
-//            $user = User::create($request->only(['full_name' , 'image' , 'device_notification_id' , 'phone' , 'password' , 'device_id']));
-//            DB::commit();
-//            return $this->success([
-//                "token" =>  $user->createToken("API TOKEN")->plainTextToken,
-//                "user" => UserResource::make($user)
-//            ] , __('messages.auth_controller.register'));
-            return $this->success(
-                $request->only(['full_name' , 'image' , 'device_notification_id' , 'phone' , 'password' , 'device_id'])
-                , 'الرجاء عدم المحاولة و التطبيق تحت اعد المحاولة بعد ساعة من الان و نتشكرك على صبركم وتفهمكم');
+            DB::beginTransaction();
+            $user = User::create($request->only(['full_name' , 'image' , 'device_notification_id' , 'phone' , 'password' , 'device_id']));
+            DB::commit();
+            return $this->success([
+                "token" =>  $user->createToken("API TOKEN")->plainTextToken,
+                "user" => UserResource::make($user)
+            ] , __('messages.auth_controller.register'));
         }catch (\Throwable $th){
             DB::rollBack();
             return HelperFunction::ServerErrorResponse();
