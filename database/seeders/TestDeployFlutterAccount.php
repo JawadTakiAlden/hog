@@ -16,7 +16,7 @@ class TestDeployFlutterAccount extends Seeder
     {
         User::create([
             'full_name' => 'Tester',
-            'phone' => '0999999999',
+            'phone' => '0999999998',
             'password' => 'test12345',
             'type' => UserType::TEST_DEPLOY,
         ]);
