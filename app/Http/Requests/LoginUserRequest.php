@@ -23,7 +23,7 @@ class LoginUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => 'required|min:10|max:10',
+            'phone' => 'required',
             'password' => 'required|min:4',
             'device_id' => 'required',
             'device_notification_id' => 'required'
