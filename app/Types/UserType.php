@@ -8,4 +8,5 @@ class UserType
     public const STUDENT = "student";
     public const TEACHER = "teacher";
     public const EMPLOYEE = "employee";
+    public const TEST_DEPLOY = "deployer";
 }

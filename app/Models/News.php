@@ -20,24 +20,24 @@ class News extends Model
         return $this->attributes['image'] =  '/'.'news_images'.'/' . $newImageName;
     }
 
-//    protected static function boot()
-//    {
-//        parent::boot();
-//        static::deleting(function ($news) {
-//            $imagePath = public_path($news->image);
-//            if (File::exists($imagePath)) {
-//                File::delete($imagePath);
-//            }
-//        });
-//        static::updated(function ($news) {
-//            if ($news->image){
-//                if ($news->isDirty('image')) {
-//                    $oldImagePath = public_path($news->getOriginal('image'));
-//                    if (File::exists($oldImagePath)) {
-//                        File::delete($oldImagePath);
-//                    }
-//                }
-//            }
-//        });
-//    }
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($news) {
+            $imagePath = public_path($news->image);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        });
+        static::updated(function ($news) {
+            if ($news->image){
+                if ($news->isDirty('image')) {
+                    $oldImagePath = public_path($news->getOriginal('image'));
+                    if (File::exists($oldImagePath)) {
+                        File::delete($oldImagePath);
+                    }
+                }
+            }
+        });
+    }
 }
