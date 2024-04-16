@@ -85,6 +85,7 @@ class AuthController extends Controller
                     __('messages.not_found')
                 , 404);
             }
+            return $this->error($user->type , 422);
             if(strval($user->type) === UserType::TEST_DEPLOY){
                 $token = $user->createToken('API TOKEN')->plainTextToken;
                 DB::commit();
