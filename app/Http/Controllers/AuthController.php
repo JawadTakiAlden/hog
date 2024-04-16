@@ -80,7 +80,13 @@ class AuthController extends Controller
         try {
             DB::beginTransaction();
             $user = User::where('phone', $request->phone)->first();
-            if($user->type === UserType::TEST_DEPLOY){
+
+            if (!$user){
+                return $this->error(
+                    __('messages.not_found')
+                , 404);
+            }
+            if(strval($user->type) === UserType::TEST_DEPLOY){
                 $token = $user->createToken('API TOKEN')->plainTextToken;
                 $user->update([
                     'device_notification_id' => $request->device_notification_id
@@ -90,11 +96,6 @@ class AuthController extends Controller
                     "token" => $token,
                     "user" => UserResource::make($user),
                 ] , __('messages.auth_controller.login' , [ 'user_name' => $user->full_name ]));
-            }
-            if (!$user){
-                return $this->error(
-                    __('messages.not_found')
-                , 404);
             }
             if ($user->is_blocked){
                 return $this->error(__('messages.error.blocked_account'), 403);
