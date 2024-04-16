@@ -25,6 +25,7 @@ The activation code you provided for the course has expired. Please obtain a new
             "credentials_error" => "Oh no! 🙈 It seems like your passcode is playing hide and seek with our servers. Let's coax it out together. 🕵️‍♂️",
             "block_account_while_login" => "🚫 Uh-oh! Looks like you've logged in from a different device. For your security, we've temporarily blocked access."
         ],
+        "device_id_unique" => "you're already have an account on this mobile , if you forget your account , call the admin to get it back",
         'register' => "Hooray! You're now part of the family. Let's make some magic happen!",
         "login" => "Welcome :user_name Back for more? Excellent choice! Let's make today even better than yesterday.",
         "logout" => "It's been a pleasure having you here. Take care and come back soon for more.",
