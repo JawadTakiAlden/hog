@@ -89,12 +89,12 @@ class AuthController extends Controller
             if(strval($user->type) === UserType::TEST_DEPLOY){
                 $token = $user->createToken('API TOKEN')->plainTextToken;
                 DB::commit();
-                return $this->error('after commit' , 422);
                 return $this->success([
                     "token" => $token,
                     "user" => UserResource::make($user),
-                ] , __('messages.auth_controller.login' , [ 'user_name' => $user->full_name ]));
+                ]);
             }
+//            __('messages.auth_controller.login' , [ 'user_name' => $user->full_name ])
             if ($user->is_blocked){
                 return $this->error(__('messages.error.blocked_account'), 403);
             }
