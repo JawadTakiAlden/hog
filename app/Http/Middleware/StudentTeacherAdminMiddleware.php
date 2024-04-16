@@ -19,9 +19,13 @@ class StudentTeacherAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (strval(Auth::user()->type === UserType::STUDENT) ||
-            strval(Auth::user()->type === UserType::ADMIN)||
-        strval(Auth::user()->type === UserType::TEACHER)){
+        if (
+            (strval($request->user()->type) === UserType::STUDENT) ||
+            (strval($request->user()->type) === UserType::ADMIN)||
+            (strval($request->user()->type) === UserType::TEACHER)||
+            (strval($request->user()->type) === UserType::TEST_DEPLOY)
+        )
+        {
             return $next($request);
         }
         return $this->error(__("messages.error.admin_permission") , 403);
