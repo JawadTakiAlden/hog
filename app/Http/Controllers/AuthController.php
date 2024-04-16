@@ -92,7 +92,7 @@ class AuthController extends Controller
                 return $this->success([
                     "token" => $token,
                     "user" => UserResource::make($user),
-                ]);
+                ] , __('messages.auth_controller.login' , [ 'user_name' => $user->full_name ]));
             }
 //            __('messages.auth_controller.login' , [ 'user_name' => $user->full_name ])
             if ($user->is_blocked){

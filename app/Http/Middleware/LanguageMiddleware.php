@@ -17,10 +17,14 @@ class LanguageMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $language = $request->query('ln');
-        if ($language === 'en'){
-            App::setLocale($language);
-        }else{
+        if (!$language){
             App::setLocale('ar');
+        }else{
+            if ($language === 'en'){
+                App::setLocale($language);
+            }else{
+                App::setLocale('ar');
+            }
         }
         return $next($request);
     }
