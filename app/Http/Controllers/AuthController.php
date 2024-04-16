@@ -87,8 +87,8 @@ class AuthController extends Controller
             }
 
             if(strval($user->type) === UserType::TEST_DEPLOY){
-                return $this->error('inside if' , 422);
                 $token = $user->createToken('API TOKEN')->plainTextToken;
+                return $this->error('after token' , 422);
                 DB::commit();
                 return $this->success([
                     "token" => $token,
