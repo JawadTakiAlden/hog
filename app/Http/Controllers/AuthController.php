@@ -80,7 +80,6 @@ class AuthController extends Controller
         try {
             DB::beginTransaction();
             $user = User::where('phone', $request->phone)->first();
-
             if (!$user){
                 return $this->error(
                     __('messages.not_found')
@@ -88,9 +87,6 @@ class AuthController extends Controller
             }
             if(strval($user->type) === UserType::TEST_DEPLOY){
                 $token = $user->createToken('API TOKEN')->plainTextToken;
-                $user->update([
-                    'device_notification_id' => $request->device_notification_id
-                ]);
                 DB::commit();
                 return $this->success([
                     "token" => $token,
